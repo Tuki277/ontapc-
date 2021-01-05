@@ -1,34 +1,33 @@
 #include <iostream>
-#include <stdlib.h>
 #include <math.h>
 
 using namespace std;
 
-void ghiFile(int a[],int &n)
+void ghiFile(int a[], int n)
 {
     FILE *f;
-    f = fopen("ABC2006.txt","a");
-    for(int i = 0 ;i < n; i++)
+    f = fopen("ABC2007.txt", "a");
+    for (int i = 0; i<n; i++)
     {
-        fprintf(f,"%3d",a[i]);
+        fprintf(f, "%3d", a[i]);
     }
     fprintf(f, "\n");
     fclose(f);
 }
 
-void ghiFile2(int a[],int &n)
+void ghiFile2(int a[], int n)
 {
     FILE *f;
-    f = fopen("XYZ2006.txt","a");
-    for(int i = 0 ;i < n; i++)
+    f = fopen("XYZ2007.txt", "a");
+    for (int i = 0; i<n; i++)
     {
-        fprintf(f,"%3d",a[i]);
+        fprintf(f, "%3d", a[i]);
     }
     fprintf(f, "\n");
     fclose(f);
 }
 
-void nhap(int a[], int &n)
+void nhap (int a[], int &n)
 {
     for (int i = 0; i<n; i++)
     {
@@ -37,7 +36,7 @@ void nhap(int a[], int &n)
     }
 }
 
-void xuat(int a[], int &n)
+void xuat (int a[], int &n)
 {
     for (int i = 0; i<n; i++)
     {
@@ -45,13 +44,13 @@ void xuat(int a[], int &n)
     }
 }
 
-void sort(int a[], int n)
+void sort (int a[], int n)
 {
-    for (int i=0; i<n; i++)
+    for (int i = 0; i<n; i++)
     {
-        for(int j=i+1; j<n; j++)
+        for (int j = i+1; j<n; j++)
         {
-            if (a[i] > a[j])
+            if (a[i] < a[j])
             {
                 int temp = a[i];
                 a[i] = a[j];
@@ -61,36 +60,42 @@ void sort(int a[], int n)
     }
 }
 
-void xuatNhoHonX(int a[], int n)
+void tach(int a[], int b[], int c[], int n, int &p, int &g)
 {
-    int x;
-    cout << "Nhap gia tri cua x: ";
-    cin >> x;
-    for (int i = 0; i<n; i++)
-    {
-        if (x > fabs(a[i]))
+    p,g = 0;
+    for (int i = 0; i<n; i++) {
+        if (a[i] % 2 == 0)
         {
-            cout << a[i] << endl;
+            b[p] = a[i];
+            p++;
+        }
+        if (a[i] % 2 != 0)
+        {
+            c[g] = a[i];
+            g++;
         }
     }
 }
 
-void deleteArr(int a[], int n)
+void xetHopLe (int a[], int n)
 {
-    int max = a[0];
+    int dem = 0;
     for (int i = 0; i<n; i++)
     {
-        if (max < a[i])
+        if (a[i] % 2 == 0 && a[i] != a[i+1] && a[i+1] != a[i+2])
         {
-            max = a[i];
+            dem = 1;
         }
     }
-    for (int i = max; i<n-1; i++)
+    if (dem == 1)
     {
-        a[i] = a[i+1];
+        cout << "Hop le";
     }
-    n--;
-    xuat(a,n);
+    else
+    {
+        cout << "Deo hop le";
+    }
+    
 }
 
 int main()
@@ -98,16 +103,20 @@ int main()
     FILE *f;
     int *p = new int;
     int n;
-    *p = n;
-    cout << "Nhap so luong phan tu : ";
+    cout << "Nhap vao so luong phan tu: ";
     cin >> n;
-    int a[n];
+    int a[n], b[n], c[n], e, g;
     cout << "Nhap mang " << endl;
     nhap(a,n);
-    cout << "Xuat mang " << endl;
+    cout << "Xuat mang" << endl;
     xuat(a,n);
     ghiFile(a,n);
-    xuatNhoHonX(a,n);
-    cout << "Xoa mang" << endl;
-    deleteArr(a,n);
+    sort(a,n);
+    ghiFile2(a,n);
+    tach(a,b,c,n,e,g);
+    cout << "Mang chan : ";
+    xuat(b,e);
+    cout << "\n Mang le : ";
+    xuat(c,g);
+    xetHopLe(a,n);
 }

@@ -3,44 +3,50 @@
 
 using namespace std;
 
-int gt(int n)
+void nhap (int &n, int &m)
 {
-    int gt = 1;
-    for (int i = 1; i <= n; i++)
+    cout << "Nhap n : ";
+    cin >> n;
+    cout << "Nhap m : ";
+    cin >> m;
+    if (n > m)
     {
-        gt *= i;
+        int temp = n;
+        n = m;
+        m = temp;
     }
-    return gt;
 }
 
-float tinh1 (float x, int n)
+void phanB (int n, int m)
 {
-    float tong=0;
-    for (int i = 0; i<n; i++)
+    for (int i = n; i<= m; i++)
     {
-        tong += pow(x,(float)i+1);
+        if (i % 3 == 0 && i % 5 == 0)
+        {
+            cout << i << "\t";
+        }
     }
-    return (1.0/gt(n)) * (2020 * exp(fabs(x)) + tong);
+    cout << endl;
 }
 
-float tinh2(float x, int n, int m)
+float phanC (float x, int n)
 {
-    return (tinh1(x,n) + tinh1(x,m)) / tinh1(x,m+n);
-}
-
-float tinh(float x, int n, int m)
-{
-    return tinh1(x,n) + tinh1(x,m) + tinh2(x,n,m);
-            //20292     //40584     
+    float tong = 0;
+    for (int i = 0; i<=n; i++)
+    {
+        tong += x / (2 * i - 1);
+    }
+    return 2020.0 * fabs(n * x) + tong;
 }
 
 int main()
 {
-    int m, n;
+    int m,n;
     float x;
-    cout << "Nhap : ";
-    cin >> m >> n >> x;
-    cout << "Ket qua phep tinh 1 = " << tinh1(x,n) << endl;
-    cout << "Ket qua phep tinh 2 = " << tinh2(x,n,m) << endl;
-    cout << "Ket qua phep tinh 3 = " << tinh(x,n,m) << endl;
+    nhap(n,m);
+    cout << "Nhap x: ";
+    cin >> x;
+    phanB(n,m);
+    phanB(1,n);
+    cout << "Tong = " << phanC(x,n);
 }
